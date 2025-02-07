@@ -89,4 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     cardsContainer.addEventListener('scroll', checkBottom);
+
+    // Add smooth scroll for View Curriculum button
+    const viewCurriculumBtn = document.querySelector('.request-btn');
+    viewCurriculumBtn.addEventListener('click', () => {
+        document.getElementById('curriculum').scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
 }); 

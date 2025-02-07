@@ -66,10 +66,61 @@ button {
 .request-btn {
     background: var(--golden);
     color: var(--dark-bg);
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.request-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transform: translateX(-100%);
+    transition: 0.6s;
 }
 
 .request-btn:hover {
     background: #D4B683;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(197, 165, 114, 0.3);
+}
+
+.request-btn:hover::before {
+    transform: translateX(100%);
+}
+
+.request-btn .arrow-icon {
+    stroke: var(--dark-bg);
+    transition: transform 0.3s ease;
+}
+
+.request-btn:hover .arrow-icon {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .request-btn {
+        padding: 0.75rem 1.75rem;
+        font-size: 0.9rem;
+    }
 }
 
 main {
@@ -563,15 +614,15 @@ h1 br {
 /* Authors section styles */
 .section.authors {
     position: relative;
-    height: 100vh;
+    min-height: 100vh; /* Changed from height to min-height */
     width: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    overflow: hidden; /* Add this to prevent scrolling */
+    padding: 2rem 0;
+    overflow-y: visible; /* Changed from hidden to visible */
 }
 
 .section.authors::before {
@@ -614,9 +665,44 @@ h1 br {
     gap: 4rem;
     align-items: center;
     padding: 2rem;
+    min-height: 100vh;
+    overflow-y: visible;
+}
+
+.author-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
     height: 100%;
-    max-height: 100vh;
-    overflow: hidden; /* Add this to prevent scrolling */
+    padding-top: 25%;
+}
+
+.author-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid var(--turquoise);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.author-image:hover {
+    transform: translateY(-5px);
+}
+
+.author-info h3 {
+    font-size: 1.5rem;
+    color: var(--light-text);
+    margin-bottom: 0.5rem;
+}
+
+.author-info p {
+    font-size: 1rem;
+    color: var(--ethereal-blue);
+    line-height: 1.4;
 }
 
 .book-page {
@@ -624,72 +710,113 @@ h1 br {
     padding: 2rem;
     border-radius: 20px;
     width: 500px;
-    height: auto;
+    height: auto; /* Allow natural height */
     position: relative;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 1rem; /* Reduced from 1.5rem to make content more compact */
-    padding-top: 2rem;
+    gap: 1rem;
     color: var(--dark-bg);
     transform: perspective(1000px) rotateY(0deg);
     transition: transform 0.5s ease;
-    overflow: hidden; /* Changed from auto to hidden */
+    overflow: visible; /* Changed from auto to visible */
 }
 
-.book-page::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    top: 0;
-    width: 20px;
-    height: 100%;
-    background: linear-gradient(to right, 
-        rgba(0,0,0,0.1),
-        rgba(0,0,0,0.05)
-    );
-    border-radius: 10px 0 0 10px;
-    transform: skewY(-45deg);
-    transform-origin: right top;
-}
-
-.book-page::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -20px;
-    width: 100%;
-    height: 20px;
-    background: linear-gradient(to bottom, 
-        rgba(0,0,0,0.1),
-        rgba(0,0,0,0.05)
-    );
-    border-radius: 0 0 10px 10px;
-    transform: skewX(-45deg);
-    transform-origin: left bottom;
+/* Remove scrollbar styles */
+.book-page::-webkit-scrollbar {
+    display: none;
 }
 
 .book-page h2 {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: var(--deep-teal);
-    text-align: center;
     margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-align: center;  /* Added to center the heading */
+    max-width: 90%;  /* Added to ensure proper width control */
+    margin-left: auto;  /* Added for horizontal centering */
+    margin-right: auto;  /* Added for horizontal centering */
 }
 
-.book-page p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--dark-bg);
-    margin-bottom: 1rem;
+.highlights-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.highlight-card {
+    background: rgba(6, 39, 38, 0.05);  /* Adjusted for better visibility */
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--turquoise);
+    transition: all 0.3s ease;
+    text-align: center;  /* Center text */
+}
+
+.highlight-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--ethereal-blue);
+    box-shadow: 0 10px 20px rgba(127, 219, 218, 0.1);
+    background: rgba(6, 39, 38, 0.1);
 }
 
 .highlight-text {
-    background: linear-gradient(120deg, var(--ethereal-blue) 0%, var(--turquoise) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--deep-teal);  /* Changed from turquoise for better contrast */
     font-weight: 500;
+    margin: 0;
+}
+
+.description-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--deep-teal);
+    opacity: 0.9;
+    text-align: center;  /* Center text */
+    padding: 0 1.5rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 1200px) {
+    .book-page {
+        width: 100%;
+        max-width: 500px;
+        margin: 2rem auto;
+        height: auto;
+    }
+
+    .authors-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .author-section {
+        padding-top: 0;
+    }
+
+    .author-section:first-of-type {
+        order: 1; /* First author appears first */
+    }
+
+    .book-page {
+        order: 2; /* Book page appears second */
+    }
+
+    .author-section:last-of-type {
+        order: 3; /* Second author appears last */
+    }
+}
+
+/* Remove max-height media query since we want full height always */
+@media (max-height: 800px) {
+    .book-page {
+        padding: 2rem;
+    }
 }
 
 /* Update author sections */
@@ -727,182 +854,75 @@ h1 br {
     line-height: 1.4;
 }
 
-/* Adjust responsive styles for the book */
-@media (max-width: 1200px) {
-    .authors-content {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .book-page {
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    .author-section {
-        flex-direction: row;
-        text-align: left;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-
-    .author-image {
-        width: 150px;
-        height: 150px;
-    }
-}
-
-@media (max-width: 768px) {
-    .book-page {
-        padding: 2rem;
-        min-height: auto;
-    }
-
-    .author-section {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .book-page h2 {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .book-page {
-        padding: 1.5rem;
-    }
-
-    .author-image {
-        width: 120px;
-        height: 120px;
-    }
-}
-
 /* Update book preview layout */
 .book-preview {
-    margin-top: auto;
-    margin-bottom: 0;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    gap: .5rem;
+    gap: 1rem;
 }
 
 .book-image {
-    width: 240px; /* Increased from 180px */
+    width: 240px;
     height: auto;
-
     transition: transform 0.3s ease;
+    margin-bottom: 0.5rem;
 }
 
 .book-tag {
     position: relative;
-    background: rgba(127, 219, 218, 0.05);
+    background: var(--deep-teal);
     padding: 0.85rem 2rem;
     border-radius: 50px;
-    border: 1px solid transparent; /* Changed to transparent */
+    border: none;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     cursor: pointer;
     transition: all 0.4s ease;
     white-space: nowrap;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    overflow: hidden; /* Ensure the pseudo-element stays within bounds */
+    box-shadow: 0 4px 15px rgba(7, 59, 58, 0.2);
 }
 
-/* Add the animated border effect */
 .book-tag::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        linear-gradient(90deg, transparent, transparent 50%, var(--turquoise) 50%, var(--turquoise) 51%, transparent 51%, transparent);
-    background-size: 200% 100%;
+    inset: 0;
     border-radius: 50px;
-    animation: borderLight 3s linear infinite;
-    opacity: 0.6;
-}
-
-/* Add the moving dot effect */
-.book-tag::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--ethereal-blue);
-    box-shadow: 0 0 10px var(--ethereal-blue),
-                0 0 20px var(--ethereal-blue),
-                0 0 30px var(--ethereal-blue);
-    animation: moveDot 3s linear infinite;
-}
-
-@keyframes moveDot {
-    0% {
-        top: 0;
-        left: 0;
-    }
-    25% {
-        top: 0;
-        left: 100%;
-        transform: translateX(-100%);
-    }
-    50% {
-        top: 100%;
-        left: 100%;
-        transform: translate(-100%, -100%);
-    }
-    75% {
-        top: 100%;
-        left: 0;
-        transform: translateY(-100%);
-    }
-    100% {
-        top: 0;
-        left: 0;
-    }
-}
-
-/* Update hover state */
-.book-tag:hover {
-    background: rgba(32, 178, 170, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(127, 219, 218, 0.2);
-}
-
-.book-tag:hover::before {
-    opacity: 0.8;
-}
-
-.book-tag:hover::after {
-    background: var(--light-text);
-    box-shadow: 0 0 10px var(--light-text),
-                0 0 20px var(--light-text),
-                0 0 30px var(--light-text);
+    padding: 2px;
+    background: linear-gradient(120deg, var(--ethereal-blue), var(--turquoise));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
 }
 
 .book-label {
-    color: var(--turquoise);
+    color: var(--light-text);
     font-weight: 500;
     font-size: 0.95rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     letter-spacing: 0.5px;
-    transition: all 0.4s ease;
 }
 
 .arrow-icon {
-    stroke: var(--turquoise);
-    transition: all 0.4s ease;
+    stroke: var(--light-text);
+    transition: transform 0.3s ease;
+}
+
+.book-tag:hover {
+    transform: translateY(-2px);
+    background: var(--turquoise);
+    box-shadow: 0 8px 20px rgba(32, 178, 170, 0.3);
+}
+
+.book-tag:hover .arrow-icon {
+    transform: translateX(4px);
 }
 
 @media (max-width: 768px) {
@@ -913,4 +933,24 @@ h1 br {
     .book-label {
         font-size: 0.9rem;
     }
+}
+
+.author-section:first-of-type {
+    order: 0; /* Default order */
+}
+
+.book-page {
+    order: 0; /* Default order */
+}
+
+.author-section:last-of-type {
+    order: 0; /* Default order */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.request-btn {
+    cursor: pointer;
 } 
