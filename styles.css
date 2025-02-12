@@ -813,6 +813,17 @@ h1 br {
 }
 
 @media (max-width: 1200px) {
+    .section.authors {
+        padding: 6rem 0;  /* Increased padding top and bottom */
+        min-height: auto; /* Allow natural height */
+    }
+
+    .authors-content {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        min-height: auto;
+    }
+
     .authors-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1123,5 +1134,11 @@ html {
         flex-direction: column;
         align-items: center;
         /* ... existing mobile styles ... */
+    }
+}
+
+@media (max-width: 768px) {
+    .section.authors {
+        padding: 4rem 0;  /* Slightly less padding for very small screens */
     }
 } 
