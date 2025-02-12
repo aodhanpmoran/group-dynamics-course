@@ -276,6 +276,12 @@ h1 br + br {
     background: var(--dark-bg);
     color: var(--light-text);
     border: 1px solid var(--turquoise);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 2rem 1rem; /* Reduced bottom padding */
 }
 
 .card.dark h2 {
@@ -283,14 +289,18 @@ h1 br + br {
     font-size: 2.5rem;
     line-height: 1.1;
     font-weight: 400;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
+    text-align: center;
 }
 
 .waitlist-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
     width: 100%;
+    text-align: center;
 }
 
 .waitlist-form input {
@@ -953,4 +963,46 @@ html {
 
 .request-btn {
     cursor: pointer;
+}
+
+.discount-info {
+    color: var(--ethereal-blue);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 0.5rem; /* Added to reduce bottom space */
+}
+
+.discount-info > p:first-child {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--light-text);
+}
+
+.discount-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0; /* Reduced from 1rem */
+    width: 100%;
+    text-align: center;
+}
+
+.discount-list li {
+    margin: 0.75rem 0; /* Reduced from 1rem */
+    font-size: 1.1rem;
+    color: var(--light-text);
+    text-align: center;
+}
+
+.discount-note {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 1rem; /* Reduced from 1.5rem */
+    line-height: 1.6;
+    text-align: center;
+    max-width: 90%;
 } 
