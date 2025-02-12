@@ -301,6 +301,12 @@ h1 br + br {
     gap: 1rem;
     width: 100%;
     text-align: center;
+    max-width: 100%; /* Added to ensure no overflow */
+}
+
+.waitlist-form iframe {
+    width: 100% !important; /* Force full width */
+    max-width: 100%; /* Prevent overflow */
 }
 
 .waitlist-form input {
@@ -348,6 +354,19 @@ h1 br + br {
     
     .card.dark h2 {
         font-size: 2rem;
+    }
+    
+    .card.dark {
+        padding: 2rem 1rem 1rem; /* Reduced side padding on mobile */
+    }
+    
+    .waitlist-form {
+        padding: 0 0.5rem; /* Add small padding inside the form */
+    }
+    
+    .waitlist-form iframe {
+        transform: scale(0.95); /* Slightly reduce the size on mobile */
+        transform-origin: center center;
     }
 }
 
@@ -707,6 +726,7 @@ h1 br {
     font-size: 1.5rem;
     color: var(--light-text);
     margin-bottom: 0.5rem;
+    white-space: nowrap; /* Prevent name from wrapping */
 }
 
 .author-info p {
@@ -793,32 +813,49 @@ h1 br {
 }
 
 @media (max-width: 1200px) {
-    .book-page {
-        width: 100%;
-        max-width: 500px;
-        margin: 2rem auto;
-        height: auto;
-    }
-
     .authors-content {
         grid-template-columns: 1fr;
         gap: 2rem;
-    }
+        padding: 1rem;
+        
+        /* Create a nested grid for author sections */
+        .author-sections-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            margin: 0 auto 2rem;
+            order: 1;
+        }
 
-    .author-section {
-        padding-top: 0;
-    }
+        .author-section {
+            padding: 1rem;
+            margin: 0;
+            width: 100%;
+            
+            /* Adjust image size for mobile */
+            .author-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            /* Adjust text size for mobile */
+            .author-info h3 {
+                font-size: 1.25rem;
+            }
+            
+            .author-info p {
+                font-size: 0.9rem;
+            }
+        }
 
-    .author-section:first-of-type {
-        order: 1; /* First author appears first */
-    }
-
-    .book-page {
-        order: 2; /* Book page appears second */
-    }
-
-    .author-section:last-of-type {
-        order: 3; /* Second author appears last */
+        .book-page {
+            order: 2;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
     }
 }
 
@@ -856,6 +893,7 @@ h1 br {
     font-size: 1.5rem;
     color: var(--light-text);
     margin-bottom: 0.5rem;
+    white-space: nowrap; /* Prevent name from wrapping */
 }
 
 .author-info p {
@@ -1005,4 +1043,85 @@ html {
     line-height: 1.6;
     text-align: center;
     max-width: 90%;
+}
+
+/* Update authors-content grid layout for desktop */
+.authors-content {
+    /* Desktop layout (above 1200px) */
+    @media (min-width: 1201px) {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 4rem;
+        align-items: center;
+        padding: 2rem;
+        
+        .author-sections-wrapper {
+            display: contents; /* This allows direct grid placement of author sections */
+        }
+
+        .author-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            height: auto;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .author-section:first-of-type {
+            grid-column: 1;
+            grid-row: 1;
+            justify-self: end; /* Push to right side of column */
+        }
+
+        .book-page {
+            grid-column: 2;
+            grid-row: 1;
+            width: 500px;
+        }
+
+        .author-section:last-of-type {
+            grid-column: 3;
+            grid-row: 1;
+            justify-self: start; /* Push to left side of column */
+        }
+    }
+
+    /* Keep existing mobile styles */
+    @media (max-width: 1200px) {
+        // ... existing mobile styles ...
+    }
+}
+
+@media (max-width: 768px) {
+    .author-info h3 {
+        font-size: 1.25rem; /* Slightly smaller font size on mobile if needed */
+    }
+}
+
+.facilitators-heading {
+    display: none; /* Hidden by default for desktop */
+    text-align: center;
+    color: var(--light-text);
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1200px) {
+    .facilitators-heading {
+        display: block;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        width: 100%;
+        order: 0; /* Ensures it appears at the top */
+    }
+
+    .authors-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* ... existing mobile styles ... */
+    }
 } 
