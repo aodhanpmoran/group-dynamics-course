@@ -1141,4 +1141,93 @@ html {
     .section.authors {
         padding: 4rem 0;  /* Slightly less padding for very small screens */
     }
+}
+
+/* Update card styles for very small screens */
+@media (max-width: 375px) {
+    .card {
+        padding: 1.5rem;  /* Reduce padding */
+        min-height: auto; /* Allow cards to be shorter */
+    }
+
+    .card h2 {
+        font-size: 1.75rem; /* Smaller heading size */
+        margin-bottom: 0.75rem;
+    }
+
+    .card p {
+        font-size: 0.95rem; /* Smaller paragraph text */
+        margin-bottom: 1.5rem;
+    }
+
+    .cards-container {
+        padding: 1rem; /* Reduce container padding */
+        gap: 1rem; /* Reduce gap between cards */
+    }
+
+    /* Adjust dark card styles */
+    .card.dark {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .card.dark h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Adjust discount info text sizes */
+    .discount-info > p:first-child {
+        font-size: 1.1rem;
+    }
+
+    .discount-list li {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+    }
+
+    .discount-note {
+        font-size: 0.85rem;
+    }
+}
+
+/* Update card styles for mobile devices */
+@media (max-width: 390px) {
+    .card {
+        padding: 2rem 1.75rem;  /* Increased vertical padding */
+        margin-bottom: 1.5rem;
+        min-height: auto;
+    }
+
+    .card h2 {
+        font-size: 2rem; /* Slightly reduced heading size */
+        line-height: 1.2;
+        margin-bottom: 1rem; /* Increased spacing after heading */
+    }
+
+    .card p {
+        font-size: 1rem;
+        line-height: 1.6; /* Increased line height for better readability */
+        margin-bottom: 1.5rem;
+        color: var(--ethereal-blue);
+    }
+
+    .cards-container {
+        padding: 1.5rem;
+        gap: 1.75rem; /* Increased gap between cards */
+    }
+
+    /* Adjust dark card styles */
+    .card.dark {
+        padding: 2rem 1.75rem 1.5rem;
+    }
+
+    .card.dark h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    /* Adjust gradient decoration position */
+    .card-gradient {
+        transform: translate(35%, 35%); /* Move gradient further away from text */
+    }
 } 
