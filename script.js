@@ -63,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const cardsContainer = document.querySelector('.cards-container');
     const scrollIndicator = document.querySelector('.scroll-indicator');
+    const backToTop = document.querySelector('.back-to-top');
     let isScrolling;
 
     // Hide indicator when scrolling
@@ -96,6 +97,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('curriculum').scrollIntoView({ 
             behavior: 'smooth',
             block: 'start'
+        });
+    });
+
+    // Function to check if we're near bottom of cards section
+    const isNearBottom = () => {
+        const containerHeight = container.clientHeight;
+        const cardsSectionRect = cardsSection.getBoundingClientRect();
+        const cardsSectionBottom = cardsSectionRect.bottom;
+        
+        return cardsSectionBottom <= containerHeight + 100;
+    };
+
+    // Function to handle scroll
+    const handleScroll = () => {
+        if (isNearBottom()) {
+            scrollIndicator.style.opacity = '0';
+            backToTop.classList.add('visible');
+        } else {
+            scrollIndicator.style.opacity = '1';
+            backToTop.classList.remove('visible');
+        }
+    };
+
+    // Add scroll event listener to container instead of window
+    container.addEventListener('scroll', handleScroll);
+
+    // Back to top click handler
+    backToTop.addEventListener('click', () => {
+        container.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
     });
 }); 
