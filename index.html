@@ -326,11 +326,16 @@
                     <div class="card-gradient"></div>
                 </div>
 
-                <div class="card dark">
-                    <h2>Join our newsletter</h2>
-                    <div class="waitlist-form">
-                        <iframe src="https://embeds.beehiiv.com/65251109-6e58-4b52-974d-9c03e0dbdbf4?slim=true" data-test-id="beehiiv-embed" height="52" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px !important; background-color: transparent;"></iframe>
-
+                <div class="card invitation">
+                    <div class="invitation-content">
+                        <h2 class="invitation-title">Read our invitation</h2>
+                        <p class="invitation-text">Join us on a journey to understand the deeper forces that shape group dynamics</p>
+                        <button class="read-invitation-btn">
+                            <span>Open letter of invitation</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
@@ -362,5 +367,59 @@
     </button>
 
     <script src="script.js"></script>
+
+    <!-- Add modal markup at the end of body -->
+    <div class="modal-overlay">
+        <div class="invitation-modal">
+            <button class="modal-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+            <div class="letter-content">
+                <div class="letter-header">
+                    <h2 class="letter-title">An Invitation to Deeper Understanding</h2>
+                    <div class="letter-date">February 2024</div>
+                </div>
+                <div class="letter-body">
+                    <p>Dear colleague,</p>
+                    <br>
+                    <p>We stand at a unique moment in history where understanding group behavior has never been more crucial. The patterns we see in groups today echo ancient stories that have been told for millennia, yet we often miss their significance.</p>
+                    <br>
+                    <p>Through our combined years of work with groups across various contexts, we've discovered that the most powerful insights often come from unexpected places—where ancient wisdom meets modern understanding.</p>
+                    <br>
+                    <p>This course is not just another academic exercise. It's an invitation to explore the deeper currents that move beneath the surface of group behavior. We'll journey together through mythic narratives that illuminate the patterns we see in modern groups, from workplace teams to community organizations.</p>
+                    <br>
+                    <p>Starting in May, 2025, we will meet online via Zoom for 3 hours each week, from 3:00 PM to 6:00 PM GMT (10am-1pm EST), on the following Wednesdays: May 14, May 21,  May 28, June 4, June 11, & June 18.</p>
+                    <br>
+                    <p>Our sessions will include: 1) lectures on key concepts using the novel mytho-dynamic group framework, 2) Experiential group work that turns theory into lived experience, leaving you with deep, practical insights that will change how you work with groups forever, and 3) Review and application sessions to connect theory with real-world group skills.</p>
+                    <br>
+                    <p>Participation costs $990 (incl. VAT). This can be paid once-off, or over a period of six months ($165/month). To register, please fill out the online registration form. There are discounted rates available for non-profit organizations, team enrollments, and professionals working with at-risk populations.</p>
+                    <br>
+                    <p>Whether you're a leader, facilitator, or someone deeply interested in understanding group behavior, we believe this journey will transform how you see and work with groups.</p>
+                    <br>
+                    <p>We look forward to embarking on this mythic journey with you.</p>
+                    <br>
+                    <p>Sincerely,</p>
+                </div>
+                <div class="letter-signature">
+                    <div class="author-signature">
+                        <img src="author1.webp" alt="Brant Elwood">
+                        <div class="author-info">
+                            <h4>Brant Elwood</h4>
+                            <p>Author & Group Dynamics Specialist</p>
+                        </div>
+                    </div>
+                    <div class="author-signature">
+                        <img src="author2.webp" alt="Aodhán Moran">
+                        <div class="author-info">
+                            <h4>Aodhán Moran</h4>
+                            <p>Author & Group Dynamics Specialist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html> 

@@ -201,4 +201,30 @@ document.addEventListener('DOMContentLoaded', () => {
             block: 'start'
         });
     });
+
+    // Modal handling
+    const modalOverlay = $('.modal-overlay');
+    const modalClose = $('.modal-close');
+    const invitationBtn = $('.read-invitation-btn');
+
+    function openModal() {
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    invitationBtn.addEventListener('click', openModal);
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
 }); 

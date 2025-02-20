@@ -2078,4 +2078,255 @@ html {
     inset: 0;
     will-change: auto;
     transform: translateZ(0);
+}
+
+/* Add new invitation card styles */
+.card.invitation {
+    background: linear-gradient(
+        135deg,
+        rgba(127, 219, 218, 0.1) 0%,
+        rgba(6, 39, 38, 0.4) 100%
+    );
+    border: 1px solid rgba(127, 219, 218, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card.invitation::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at top right,
+        rgba(127, 219, 218, 0.2),
+        transparent 60%
+    );
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+}
+
+.card.invitation:hover {
+    border-color: var(--turquoise);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 0 30px rgba(127, 219, 218, 0.2),
+        0 0 50px rgba(32, 178, 170, 0.1);
+}
+
+.card.invitation:hover::before {
+    opacity: 0.8;
+}
+
+.invitation-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+.invitation-title {
+    font-size: 2.5rem;
+    color: var(--light-text);
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.invitation-text {
+    color: var(--ethereal-blue);
+    font-size: 1.1rem;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.read-invitation-btn {
+    background: transparent;
+    color: var(--light-text);
+    border: 1px solid rgba(127, 219, 218, 0.4);
+    padding: 0.75rem 2rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.read-invitation-btn:hover {
+    background: rgba(127, 219, 218, 0.1);
+    border-color: var(--turquoise);
+    transform: translateY(-2px);
+}
+
+.read-invitation-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.read-invitation-btn:hover svg {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .invitation-title {
+        font-size: 2rem;
+    }
+    
+    .invitation-text {
+        font-size: 1rem;
+        max-width: 90%;
+    }
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 39, 38, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.invitation-modal {
+    background: linear-gradient(
+        135deg,
+        rgba(127, 219, 218, 0.1) 0%,
+        rgba(6, 39, 38, 0.6) 100%
+    );
+    border: 1px solid rgba(127, 219, 218, 0.3);
+    border-radius: 24px;
+    padding: 3rem;
+    max-width: 800px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(12px);
+    box-shadow: 
+        0 0 30px rgba(127, 219, 218, 0.2),
+        0 0 50px rgba(32, 178, 170, 0.1);
+}
+
+.modal-overlay.active .invitation-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    color: var(--light-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.modal-close:hover {
+    transform: scale(1.1);
+}
+
+.letter-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.letter-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.letter-title {
+    font-size: 2.5rem;
+    color: var(--light-text);
+    margin-bottom: 1rem;
+}
+
+.letter-date {
+    color: var(--ethereal-blue);
+    font-size: 1.1rem;
+}
+
+.letter-body {
+    color: var(--light-text);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.letter-signature {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 3rem;
+}
+
+.author-signature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-signature img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid rgba(127, 219, 218, 0.3);
+}
+
+.author-info h4 {
+    color: var(--light-text);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.author-info p {
+    color: var(--ethereal-blue);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .invitation-modal {
+        padding: 2rem;
+    }
+    
+    .letter-title {
+        font-size: 2rem;
+    }
+    
+    .letter-body {
+        font-size: 1rem;
+    }
+    
+    .letter-signature {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+    }
 } 
