@@ -689,7 +689,7 @@ h1 br + br {
 /* Container styles */
 .container {
     height: 100vh;
-    scroll-snap-type: y mandatory; /* Back to mandatory but with other adjustments */
+    scroll-snap-type: y mandatory;
     scroll-snap-points-y: repeat(100vh);
     overflow-y: auto;
     position: relative;
@@ -699,13 +699,23 @@ h1 br + br {
 /* Section styles */
 .section {
     scroll-snap-align: start;
-    scroll-snap-stop: normal; /* Keep this relaxed setting */
+    scroll-snap-stop: normal;
 }
 
-/* Add a small threshold for snap points */
-@media (min-width: 768px) {
+/* Add scroll padding for all devices */
+.container {
+    scroll-padding: 20px;
+}
+
+/* Adjust scroll behavior for mobile */
+@media (max-width: 768px) {
     .container {
-        scroll-padding: 20px; /* Add some padding to make snapping less abrupt */
+        scroll-snap-type: y proximity; /* Less aggressive on mobile */
+        scroll-padding: 30px; /* More padding on mobile */
+    }
+    
+    .section {
+        scroll-margin-top: 20px; /* Add some margin between sections on mobile */
     }
 }
 
