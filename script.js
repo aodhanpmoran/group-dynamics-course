@@ -1,46 +1,78 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Use more efficient selectors
+    const $ = document.querySelector.bind(document);
+    const $$ = document.querySelectorAll.bind(document);
+
+    // Optimize scroll and resize handlers with RAF
+    let scrollTimeout, resizeTimeout;
+    const throttle = (callback, wait) => {
+        let waiting = false;
+        return function () {
+            if (!waiting) {
+                waiting = true;
+                setTimeout(() => {
+                    callback.apply(this, arguments);
+                    waiting = false;
+                }, wait);
+            }
+        };
+    };
+
     // Fade out overlay
     setTimeout(() => {
-        const overlay = document.getElementById('overlay');
+        const overlay = $('.overlay');
         overlay.style.opacity = '0';
         setTimeout(() => {
             overlay.style.display = 'none';
         }, 2000);
     }, 500);
 
-    // Intersection Observer for animations
+    // Optimize intersection observer
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                requestAnimationFrame(() => {
+                    entry.target.classList.add('visible');
+                });
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: '50px'
     });
 
     // Observe the cards section
-    const cardsSection = document.querySelector('.cards-section');
+    const cardsSection = $('.cards-section');
     observer.observe(cardsSection);
 
-    // Smooth scroll handling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Update all external links to open in new tab
+    const allLinks = $$('a[href^="http"]');
+    allLinks.forEach(link => {
+        if (!link.hasAttribute('target')) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        }
+    });
+
+    // Update smooth scroll handling to exclude external links
+    $$('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
+            // Keep internal links in same tab
+            $('[name="' + this.getAttribute('href').substring(1) + '"]').scrollIntoView({
                 behavior: 'smooth'
             });
         });
     });
 
-    const sections = document.querySelectorAll('.section');
-    const container = document.querySelector('.container');
+    const sections = $$('.section');
+    const container = $('.container');
 
     // Initial check
     checkVisibility();
 
     // Check visibility on scroll
-    container.addEventListener('scroll', checkVisibility);
+    container.addEventListener('scroll', checkVisibility, { passive: true });
 
     function checkVisibility() {
         const scrollTop = container.scrollTop;
@@ -58,75 +90,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle resize
-    window.addEventListener('resize', checkVisibility);
-
-    const cardsContainer = document.querySelector('.cards-container');
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const backToTop = document.querySelector('.back-to-top');
-    let isScrolling;
-
-    // Hide indicator when scrolling
-    cardsContainer.addEventListener('scroll', () => {
-        scrollIndicator.classList.add('hidden');
-        
-        // Clear timeout if scrolling continues
-        window.clearTimeout(isScrolling);
-
-        // Set timeout to show indicator after scrolling stops
-        isScrolling = setTimeout(() => {
-            // Only show if not at bottom
-            if (cardsContainer.scrollHeight - cardsContainer.scrollTop > cardsContainer.clientHeight + 100) {
-                scrollIndicator.classList.remove('hidden');
+    // Optimize scroll handling
+    const handleScroll = throttle(() => {
+        requestAnimationFrame(() => {
+            const cardsSectionBottom = cardsSection.getBoundingClientRect().bottom;
+            const containerHeight = container.clientHeight;
+            
+            if (cardsSectionBottom <= containerHeight + 100) {
+                $('.back-to-top').classList.add('visible');
+            } else {
+                $('.back-to-top').classList.remove('visible');
             }
-        }, 1000);
-    });
-
-    // Hide indicator when at bottom
-    const checkBottom = () => {
-        if (cardsContainer.scrollHeight - cardsContainer.scrollTop <= cardsContainer.clientHeight + 100) {
-            scrollIndicator.classList.add('hidden');
-        }
-    };
-
-    cardsContainer.addEventListener('scroll', checkBottom);
-
-    // Add smooth scroll for View Curriculum button
-    const viewCurriculumBtn = document.querySelector('.request-btn');
-    viewCurriculumBtn.addEventListener('click', () => {
-        document.getElementById('curriculum').scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
         });
-    });
+    }, 100);
 
-    // Function to check if we're near bottom of cards section
-    const isNearBottom = () => {
-        const containerHeight = container.clientHeight;
-        const cardsSectionRect = cardsSection.getBoundingClientRect();
-        const cardsSectionBottom = cardsSectionRect.bottom;
-        
-        return cardsSectionBottom <= containerHeight + 100;
-    };
-
-    // Function to handle scroll
-    const handleScroll = () => {
-        const cardsSectionBottom = cardsSection.getBoundingClientRect().bottom;
-        const containerHeight = container.clientHeight;
-        
-        // Show button only when we're at the bottom of section 4
-        if (cardsSectionBottom <= containerHeight + 100) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    };
-
-    // Add scroll event listener to container instead of window
-    container.addEventListener('scroll', handleScroll);
+    // Use passive event listeners for better scroll performance
+    container.addEventListener('scroll', handleScroll, { passive: true });
 
     // Back to top click handler
-    backToTop.addEventListener('click', () => {
+    $('.back-to-top').addEventListener('click', () => {
         container.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -134,68 +116,89 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Replace the existing carousel functionality with this updated version
-    const track = document.querySelector('.carousel-track');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    const nextBtn = document.querySelector('.carousel-btn.next');
+    const track = $('.carousel-track');
+    const prevBtn = $('.carousel-btn.prev');
+    const nextBtn = $('.carousel-btn.next');
     let currentIndex = 0;
 
     // Clone the initial cards for infinite scroll
-    const cards = document.querySelectorAll('.interview-card');
+    const cards = $$('.interview-card');
     cards.forEach(card => {
         const clone = card.cloneNode(true);
         track.appendChild(clone);
     });
 
+    // Optimize carousel performance
     function updateCarousel(direction) {
-        const cardWidth = document.querySelector('.interview-card').offsetWidth;
-        const gap = 32; // 2rem gap
+        const cardWidth = $('.interview-card').offsetWidth;
+        const gap = 32;
         const moveAmount = cardWidth + gap;
         
-        if (direction === 'next') {
-            currentIndex++;
-            track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
-            
-            // Reset when we reach the cloned set
-            if (currentIndex >= cards.length) {
-                setTimeout(() => {
-                    track.style.transition = 'none';
-                    currentIndex = 0;
-                    track.style.transform = `translateX(0)`;
+        requestAnimationFrame(() => {
+            if (direction === 'next') {
+                currentIndex++;
+                track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
+                
+                if (currentIndex >= cards.length) {
                     setTimeout(() => {
-                        track.style.transition = 'transform 0.5s ease';
-                    }, 50);
-                }, 500);
-            }
-        } else {
-            if (currentIndex === 0) {
-                track.style.transition = 'none';
-                currentIndex = cards.length;
-                track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
-                setTimeout(() => {
-                    track.style.transition = 'transform 0.5s ease';
-                    currentIndex--;
-                    track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
-                }, 50);
+                        track.style.transition = 'none';
+                        currentIndex = 0;
+                        track.style.transform = 'translate3d(0, 0, 0)';
+                        requestAnimationFrame(() => {
+                            track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                        });
+                    }, 500);
+                }
             } else {
-                currentIndex--;
-                track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
+                if (currentIndex === 0) {
+                    track.style.transition = 'none';
+                    currentIndex = cards.length;
+                    track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                        currentIndex--;
+                        track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
+                    }, 50);
+                } else {
+                    currentIndex--;
+                    track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
+                }
             }
-        }
+        });
     }
 
     prevBtn.addEventListener('click', () => updateCarousel('prev'));
     nextBtn.addEventListener('click', () => updateCarousel('next'));
 
-    // Update on resize
-    window.addEventListener('resize', () => {
-        const cardWidth = document.querySelector('.interview-card').offsetWidth;
-        const gap = 32;
-        track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
-    });
+    // Optimize resize handling
+    const handleResize = throttle(() => {
+        requestAnimationFrame(() => {
+            const cardWidth = $('.interview-card').offsetWidth;
+            const gap = 32;
+            track.style.transform = `translate3d(-${currentIndex * (cardWidth + gap)}px, 0, 0)`;
+        });
+    }, 100);
 
-    // Add booking button animation with longer delay
-    const bookingLink = document.querySelector('.booking-link');
-    setTimeout(() => {
-        bookingLink.classList.add('show');
-    }, 3500); // 3.5 second delay for a more natural feel
+    // Use passive event listeners for better resize performance
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    // Update the booking button animation
+    const bookingLink = $('.booking-link');
+    if (bookingLink) {
+        // Use requestAnimationFrame for smooth animation
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                bookingLink.classList.add('visible');
+            }, 1500); // Delay the animation slightly for better UX
+        });
+    }
+
+    // Add smooth scroll for curriculum button
+    const curriculumBtn = $('.request-btn');
+    curriculumBtn.addEventListener('click', () => {
+        $('.cards-section').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
 }); 
