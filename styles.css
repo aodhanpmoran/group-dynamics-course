@@ -1851,7 +1851,7 @@ html {
 }
 
 .interview-link:hover svg {
-    transform: translateX(4px);
+    transform: translateY(-2px);
 }
 
 .interview-link svg {
@@ -2080,108 +2080,116 @@ html {
     transform: translateZ(0);
 }
 
-/* Add new invitation card styles */
+/* Update invitation card styles */
 .card.invitation {
+    grid-column: 1 / -1;
+    margin: 2rem 0;
     background: linear-gradient(
         135deg,
-        rgba(127, 219, 218, 0.1) 0%,
-        rgba(6, 39, 38, 0.4) 100%
+        rgba(127, 219, 218, 0.15) 0%,
+        rgba(6, 39, 38, 0.3) 100%
     );
     border: 1px solid rgba(127, 219, 218, 0.3);
     backdrop-filter: blur(10px);
+    max-width: none;
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    min-height: 400px; /* Increased height for more presence */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Add ethereal glow effect */
 .card.invitation::before {
     content: '';
     position: absolute;
     inset: 0;
     background: radial-gradient(
-        circle at top right,
-        rgba(127, 219, 218, 0.2),
-        transparent 60%
+        circle at center,
+        rgba(127, 219, 218, 0.2) 0%,
+        transparent 70%
     );
-    opacity: 0.5;
+    opacity: 0.6;
     transition: opacity 0.4s ease;
 }
 
-.card.invitation:hover {
-    border-color: var(--turquoise);
-    transform: translateY(-2px);
-    box-shadow: 
-        0 0 30px rgba(127, 219, 218, 0.2),
-        0 0 50px rgba(32, 178, 170, 0.1);
-}
-
-.card.invitation:hover::before {
-    opacity: 0.8;
-}
-
+/* Add subtle floating animation */
 .invitation-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
     position: relative;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    text-align: center;
-    padding: 1rem;
+    animation: float 6s ease-in-out infinite;
 }
 
 .invitation-title {
-    font-size: 2.5rem;
+    font-size: 3.5rem; /* Larger title */
     color: var(--light-text);
     font-weight: 400;
     line-height: 1.2;
-    margin: 0;
+    margin: 0 0 1.5rem;
+    text-shadow: 0 0 20px rgba(127, 219, 218, 0.3);
 }
 
 .invitation-text {
     color: var(--ethereal-blue);
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     max-width: 80%;
-    margin: 0 auto;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
 }
 
 .read-invitation-btn {
     background: transparent;
     color: var(--light-text);
     border: 1px solid rgba(127, 219, 218, 0.4);
-    padding: 0.75rem 2rem;
+    padding: 1rem 2.5rem;
     border-radius: 100px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
+    transition: all 0.4s ease;
+    display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    margin-top: 1rem;
+    margin: 0 auto;
+    backdrop-filter: blur(5px);
+}
+
+/* Add floating animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Add shimmer effect on hover */
+.card.invitation:hover::before {
+    opacity: 0.8;
 }
 
 .read-invitation-btn:hover {
     background: rgba(127, 219, 218, 0.1);
     border-color: var(--turquoise);
     transform: translateY(-2px);
-}
-
-.read-invitation-btn svg {
-    transition: transform 0.3s ease;
-}
-
-.read-invitation-btn:hover svg {
-    transform: translateX(4px);
+    box-shadow: 
+        0 0 20px rgba(127, 219, 218, 0.2),
+        0 0 40px rgba(127, 219, 218, 0.1);
 }
 
 @media (max-width: 768px) {
     .invitation-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .invitation-text {
-        font-size: 1rem;
+        font-size: 1.1rem;
         max-width: 90%;
+    }
+    
+    .card.invitation {
+        min-height: 350px;
     }
 }
 
@@ -2329,4 +2337,14 @@ html {
         gap: 2rem;
         align-items: flex-start;
     }
+}
+
+/* Adjust the button icon styling */
+.read-invitation-btn svg {
+    transition: all 0.3s ease;
+    margin-top: 1px; /* Slight adjustment to align envelope icon */
+}
+
+.read-invitation-btn:hover svg {
+    transform: translateY(-2px); /* Change from translateX to translateY for envelope hover */
 } 
