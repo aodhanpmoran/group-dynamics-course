@@ -689,19 +689,24 @@ h1 br + br {
 /* Container styles */
 .container {
     height: 100vh;
+    scroll-snap-type: y mandatory; /* Back to mandatory but with other adjustments */
+    scroll-snap-points-y: repeat(100vh);
     overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
     position: relative;
+    scroll-behavior: smooth;
 }
 
-/* Base section styles */
+/* Section styles */
 .section {
-    min-height: 100vh;
-    width: 100%;
-    position: relative;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal; /* Keep this relaxed setting */
+}
+
+/* Add a small threshold for snap points */
+@media (min-width: 768px) {
+    .container {
+        scroll-padding: 20px; /* Add some padding to make snapping less abrupt */
+    }
 }
 
 /* Hero section specific */
@@ -865,7 +870,7 @@ h1 br {
     min-height: 100vh; /* Changed from height to min-height */
     width: 100%;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1600,7 +1605,7 @@ html {
     margin-bottom: 0;
     isolation: isolate;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1746,6 +1751,8 @@ html {
 }
 
 .interviews-carousel {
+    padding-top: 2rem; /* Add padding at top to prevent cutoff */
+    margin-top: -2rem; /* Negative margin to maintain original spacing */
     overflow: hidden;
     position: relative;
     margin: 0 -2rem;
@@ -1755,7 +1762,7 @@ html {
 .carousel-track {
     display: flex;
     gap: 2rem;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .interview-card {
@@ -1766,16 +1773,11 @@ html {
     overflow: hidden;
     border: 1px solid rgba(127, 219, 218, 0.2);
     backdrop-filter: blur(8px);
-    transition: all 0.4s ease;
 }
 
 .interview-card:hover {
-    transform: translateY(-10px);
     border-color: var(--turquoise);
-    box-shadow: 
-        0 0 30px rgba(127, 219, 218, 0.3),
-        0 0 50px rgba(32, 178, 170, 0.2),
-        0 0 70px rgba(32, 178, 170, 0.1);
+    background: rgba(6, 39, 38, 0.9);
 }
 
 .interview-thumbnail {
@@ -1903,7 +1905,7 @@ html {
     margin-bottom: 0;
     isolation: isolate;
     scroll-snap-align: start;
-    scroll-snap-stop: always;
+    scroll-snap-stop: normal;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2048,18 +2050,14 @@ html {
 
 /* Optimize transitions for better performance */
 .booking-link, .booking-pill, .interview-card, .carousel-btn {
-    will-change: transform;
-    backface-visibility: hidden;
+    will-change: auto;
+    backface-visibility: visible;
 }
 
 /* Use modern CSS properties for smoother animations */
 @media (prefers-reduced-motion: no-preference) {
-    .booking-link, .back-to-top {
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) translateZ(0);
-    }
-    
     .carousel-track {
-        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) translateZ(0);
+        transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 }
 
@@ -2068,6 +2066,6 @@ html {
     content: '';
     position: absolute;
     inset: 0;
-    will-change: transform;
+    will-change: auto;
     transform: translateZ(0);
 } 
