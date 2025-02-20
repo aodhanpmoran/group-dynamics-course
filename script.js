@@ -111,11 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to handle scroll
     const handleScroll = () => {
-        if (isNearBottom()) {
-            scrollIndicator.style.opacity = '0';
+        const cardsSectionBottom = cardsSection.getBoundingClientRect().bottom;
+        const containerHeight = container.clientHeight;
+        
+        // Show button only when we're at the bottom of section 4
+        if (cardsSectionBottom <= containerHeight + 100) {
             backToTop.classList.add('visible');
         } else {
-            scrollIndicator.style.opacity = '1';
             backToTop.classList.remove('visible');
         }
     };
@@ -130,4 +132,70 @@ document.addEventListener('DOMContentLoaded', () => {
             behavior: 'smooth'
         });
     });
+
+    // Replace the existing carousel functionality with this updated version
+    const track = document.querySelector('.carousel-track');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    let currentIndex = 0;
+
+    // Clone the initial cards for infinite scroll
+    const cards = document.querySelectorAll('.interview-card');
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
+
+    function updateCarousel(direction) {
+        const cardWidth = document.querySelector('.interview-card').offsetWidth;
+        const gap = 32; // 2rem gap
+        const moveAmount = cardWidth + gap;
+        
+        if (direction === 'next') {
+            currentIndex++;
+            track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
+            
+            // Reset when we reach the cloned set
+            if (currentIndex >= cards.length) {
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    currentIndex = 0;
+                    track.style.transform = `translateX(0)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease';
+                    }, 50);
+                }, 500);
+            }
+        } else {
+            if (currentIndex === 0) {
+                track.style.transition = 'none';
+                currentIndex = cards.length;
+                track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
+                setTimeout(() => {
+                    track.style.transition = 'transform 0.5s ease';
+                    currentIndex--;
+                    track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
+                }, 50);
+            } else {
+                currentIndex--;
+                track.style.transform = `translateX(-${currentIndex * moveAmount}px)`;
+            }
+        }
+    }
+
+    prevBtn.addEventListener('click', () => updateCarousel('prev'));
+    nextBtn.addEventListener('click', () => updateCarousel('next'));
+
+    // Update on resize
+    window.addEventListener('resize', () => {
+        const cardWidth = document.querySelector('.interview-card').offsetWidth;
+        const gap = 32;
+        track.style.transform = `translateX(-${currentIndex * (cardWidth + gap)}px)`;
+    });
+
+    // Add booking button animation with longer delay
+    const bookingLink = document.querySelector('.booking-link');
+    setTimeout(() => {
+        bookingLink.classList.add('show');
+    }, 3500); // 3.5 second delay for a more natural feel
 }); 

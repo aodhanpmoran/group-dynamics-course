@@ -37,7 +37,7 @@
             <a href="https://cal.com/brant-evans-11/30min" class="booking-link">
                 <div class="booking-pill">
                     <div class="booking-avatars">
-                        <img src="author1.webp" alt="" class="booking-avatar" />
+                        <img src="author1.webp" alt="" class="booking-avatar" loading="lazy" decoding="async" width="40" height="40" />
                         <img src="author2.webp" alt="" class="booking-avatar overlay-avatar" />
                     </div>
                     <div class="booking-text-wrapper">
@@ -107,13 +107,182 @@
                     </div>
                     
                     <div class="book-preview">
-                        <img src="book.png" alt="Gods, Heroes and Groups Book Cover" class="book-image">
                         <a href="https://dub.sh/godsheroesgroups" target="_blank" rel="noopener noreferrer" class="book-tag">
                             <span class="book-label">Read Our Book Now</span>
                             <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M5 12h14M12 5l7 7-7 7"/>
                             </svg>
                         </a>
+                        <img src="book.png" alt="Gods, Heroes and Groups Book Cover" class="book-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section testimonials">
+            <div class="testimonials-content">
+                <h2 class="testimonials-heading">Book Testimonials</h2>
+                
+                <div class="testimonials-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card">
+                        <img src="testimonial1.webp" alt="Dr Sheri-Ann Cowie headshot" class="testimonial-avatar" />
+                        <p class="testimonial-text">
+                            "These complex narratives highlight the unwelcoming nature of group membership and that roles—Hero, Jester, Villain—play vital functions in relieving tensions and resolving conflicts."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>Dr Sheri-Ann Cowie</strong>
+                            <span>Conference Director for the Center for the Study of Groups and Social Systems</span>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <img src="testimonial2.webp" alt="Dr James Krantz headshot" class="testimonial-avatar" />
+                        <p class="testimonial-text">
+                            "I wholeheartedly encourage anyone interested in [the nexus of mythology, psychoanalysis, spirituality, and group life] to read this book that puts systems psychodynamic thinking at the centre of Western civilisation."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>Dr James Krantz</strong>
+                            <span>Organisational Consultant, Researcher and Managing Principal of Worklab</span>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <img src="testimonial3.webp" 
+                             alt="Dr Leslie Brissett headshot" 
+                             class="testimonial-avatar"
+                             loading="lazy"
+                             decoding="async"
+                             width="80" 
+                             height="80" />
+                        <p class="testimonial-text">
+                            "With the advent of artificial intelligence, this book points us robustly back to the domains of human intelligence. Brant Elwood and Aodhán Moran invite leaders and advisers to delve deeper."
+                        </p>
+                        <div class="testimonial-author">
+                            <strong>Dr Leslie Brissett</strong>
+                            <span>Former Group Relations Programme Director at the Tavistock Institute of Human Relations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Move interviews carousel here -->
+                <div class="section-header">
+                    <h2 class="interviews-heading">Featured Interviews</h2>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn prev" aria-label="Previous videos">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-btn next" aria-label="Next videos">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="interviews-carousel">
+                    <div class="carousel-track">
+                        <!-- Interview Card 1 -->
+                        <div class="interview-card">
+                            <div class="interview-thumbnail">
+                                <img src="interview1-small.webp" 
+                                     srcset="interview1-small.webp 400w,
+                                             interview1.webp 800w"
+                                     sizes="(max-width: 768px) 400px,
+                                            800px"
+                                     loading="lazy"
+                                     decoding="async"
+                                     fetchpriority="low"
+                                     width="800"
+                                     height="450"
+                                     alt="Interview thumbnail" />
+                                <div class="interview-overlay"></div>
+                            </div>
+                            <div class="interview-content">
+                                <span class="interview-date">January 2, 2025</span>
+                                <h3>The Weekend University</h3>
+                                <a href="https://www.youtube.com/watch?v=v516JihLIPc&t=1967s" class="interview-link">
+                                    <span>View</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Interview Card 2 -->
+                        <div class="interview-card">
+                            <div class="interview-thumbnail">
+                                <img src="interview2.webp" alt="90 Day Transformation" />
+                                <div class="interview-overlay"></div>
+                            </div>
+                            <div class="interview-content">
+                                <span class="interview-date">January 21, 2025</span>
+                                <h3>Sacred Inclusion Network</h3>
+                                <a href="https://www.youtube.com/watch?v=Z6H3Jt9mhAA" class="interview-link">
+                                    <span>View</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Interview Card 3 -->
+                        <div class="interview-card">
+                            <div class="interview-thumbnail">
+                                <img src="interview3.webp" alt="90 Day Transformation" />
+                                <div class="interview-overlay"></div>
+                            </div>
+                            <div class="interview-content">
+                                <span class="interview-date">September 19, 2024</span>
+                                <h3>London Arts-Based Research Center</h3>
+                                <a href="https://www.youtube.com/watch?v=AwioO4FXFLo" class="interview-link">
+                                    <span>View</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                          <!-- Interview Card 4 -->
+                          <div class="interview-card">
+                            <div class="interview-thumbnail">
+                                <img src="interview4.webp" alt="90 Day Transformation" />
+                                <div class="interview-overlay"></div>
+                            </div>
+                            <div class="interview-content">
+                                <span class="interview-date">January 22, 2025</span>
+                                <h3>Reality Therapy</h3>
+                                <a href="https://www.youtube.com/watch?v=hSvLgQCuQwM&t=1s" class="interview-link">
+                                    <span>View</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Interview Card 5 -->
+                        <div class="interview-card">
+                            <div class="interview-thumbnail">
+                                <img src="interview5.webp" alt="90 Day Transformation" />
+                                <div class="interview-overlay"></div>
+                            </div>
+                            <div class="interview-content">
+                                <span class="interview-date">February 5, 2025</span>
+                                <h3>Stories from the Field: Mental Health and the Outdoors</h3>
+                                <a href="https://open.spotify.com/episode/1vbCWygQwYwx49SS4pssRM" class="interview-link">
+                                    <span>View</span>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                     
+                        <!-- Add 5 more interview cards with similar structure -->
                     </div>
                 </div>
             </div>
@@ -188,7 +357,7 @@
     <button class="back-to-top">
         <span>BACK TO TOP</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            <path d="M5 12h14M12 19l7-7-7-7"/>
         </svg>
     </button>
 
