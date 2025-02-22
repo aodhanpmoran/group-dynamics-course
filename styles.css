@@ -2385,4 +2385,19 @@ html {
 
 .read-invitation-btn:hover svg {
     transform: translateY(-2px); /* Change from translateX to translateY for envelope hover */
+}
+
+@media (max-width: 430px) {
+    .hero-content {
+        gap: 0.5rem;  /* Reduce gap between elements */
+    }
+    
+    h1 {
+        margin-bottom: 0.25rem;  /* Reduce space after heading */
+    }
+    
+    .hero p {
+        margin-top: 0.25rem;  /* Reduce space before paragraph */
+        margin-bottom: 1.5rem;  /* Keep some space after paragraph */
+    }
 } 
