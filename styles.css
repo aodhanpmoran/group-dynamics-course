@@ -732,14 +732,14 @@ h1 br + br {
 
 /* Cards section specific */
 .section.cards-section {
+    padding-top: 8rem;  /* Doubled from 8rem */
+    padding-bottom: 8rem;  /* Doubled from 8rem */
     position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background: transparent;
-    overflow: visible;
-    height: auto;  /* Changed from min-height to auto */
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(6, 39, 38, 0.3)
+    );
 }
 
 /* Restore background image */
@@ -877,15 +877,15 @@ h1 br {
 /* Authors section styles */
 .section.authors {
     position: relative;
-    min-height: 100vh; /* Changed from height to min-height */
+    min-height: 100vh;
     width: 100%;
     scroll-snap-align: start;
     scroll-snap-stop: normal;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem 0;
-    overflow-y: visible; /* Changed from hidden to visible */
+    padding: 16rem 0;  /* Doubled from 8rem, matching cards-section */
+    overflow-y: visible;
 }
 
 .section.authors::before {
@@ -1360,7 +1360,7 @@ html {
 
 @media (max-width: 768px) {
     .section.authors {
-        padding: 4rem 0;  /* Slightly less padding for very small screens */
+        padding: 8rem 0;  /* Doubled from 4rem, matching cards-section mobile */
     }
 }
 
@@ -1610,7 +1610,7 @@ html {
     background: url('art4.webp') no-repeat center center;
     background-size: cover;
     position: relative;
-    padding: 0;
+    padding: 16rem 0;  /* Doubled from 8rem, matching other sections */
     min-height: 100vh;
     margin-bottom: 0;
     isolation: isolate;
@@ -1875,7 +1875,7 @@ html {
 
 @media (max-width: 768px) {
     .testimonials {
-        padding: 2rem 1rem;
+        padding: 8rem 1rem;  /* Doubled from 4rem, matching other sections */
     }
     
     .testimonials-content {
@@ -1910,7 +1910,7 @@ html {
     background: url('art4.webp') no-repeat center center;
     background-size: cover;
     position: relative;
-    padding: 0;
+    padding: 16rem 0;  /* Doubled from 8rem, matching other sections */
     min-height: 100vh;
     margin-bottom: 0;
     isolation: isolate;
@@ -1939,7 +1939,8 @@ html {
 
 /* Update cards section styling */
 .cards-section {
-    padding-top: 4rem;
+    padding-top: 16rem;  /* Doubled from 8rem */
+    padding-bottom: 16rem;  /* Doubled from 8rem */
     position: relative;
     background: linear-gradient(
         to bottom,
@@ -1951,7 +1952,7 @@ html {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .testimonials {
-        padding: 2rem 1rem;
+        padding: 8rem 1rem;  /* Doubled from 4rem, matching other sections */
     }
     
     .testimonials-content {
@@ -1959,7 +1960,8 @@ html {
     }
     
     .cards-section {
-        padding-top: 2rem;
+        padding-top: 8rem;  /* Doubled from 4rem */
+        padding-bottom: 8rem;  /* Doubled from 4rem */
     }
 }
 
@@ -2414,5 +2416,12 @@ html {
     .card .date {
         font-size: 1rem;
         margin: 0.3rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .cards-section {
+        padding-top: 8rem;  /* Doubled from 4rem */
+        padding-bottom: 8rem;  /* Doubled from 4rem */
     }
 } 
