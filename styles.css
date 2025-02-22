@@ -2085,7 +2085,6 @@ html {
 /* Update invitation card styles for better mobile centering */
 .card.invitation {
     grid-column: 1 / -1;
-    margin: 2rem 0;
     background: linear-gradient(
         135deg,
         rgba(127, 219, 218, 0.15) 0%,
@@ -2101,7 +2100,7 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    
 }
 
 /* Add ethereal glow effect */
@@ -2424,4 +2423,132 @@ html {
         padding-top: 8rem;  /* Doubled from 4rem */
         padding-bottom: 8rem;  /* Doubled from 4rem */
     }
+}
+
+/* Add styles for the accept invitation button */
+.accept-invitation-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--ethereal-blue) 0%, var(--golden) 100%);
+    color: var(--dark-bg);
+    padding: 0.75rem 2.5rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    gap: 0.75rem;
+    opacity: 0;
+    margin: 2rem auto 0;
+    width: fit-content;
+    text-decoration: none;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 
+        0 0 30px rgba(127, 219, 218, 0.3),
+        0 0 60px rgba(127, 219, 218, 0.2),
+        0 0 90px rgba(127, 219, 218, 0.1);
+}
+
+/* Add ethereal glow effect */
+.accept-invitation-btn::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--ethereal-blue), var(--golden));
+    border-radius: 50px;
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0.7;
+    transition: all 0.5s ease;
+}
+
+/* Add pulsing animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+}
+
+.accept-invitation-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.accept-invitation-btn.visible::before {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+.accept-invitation-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    background: linear-gradient(135deg, var(--golden) 0%, var(--ethereal-blue) 100%);
+    box-shadow: 
+        0 0 40px rgba(127, 219, 218, 0.4),
+        0 0 80px rgba(127, 219, 218, 0.3),
+        0 0 120px rgba(127, 219, 218, 0.2);
+}
+
+.accept-invitation-btn:hover::before {
+    filter: blur(20px);
+    opacity: 0.9;
+}
+
+/* Style the button's icon */
+.accept-invitation-btn svg {
+    transition: all 0.3s ease;
+    stroke: var(--dark-bg);
+    opacity: 0.8;
+}
+
+.accept-invitation-btn:hover svg {
+    transform: translateX(3px);
+    opacity: 1;
 } 
+
+/* Update accept invitation button styles */
+.accept-invitation-btn {
+    /* ... existing styles ... */
+    white-space: nowrap; /* Prevent text from wrapping */
+    padding: 0.75rem 1.5rem; /* Slightly reduce padding for mobile */
+    font-size: 1rem; /* Slightly smaller font size */
+    min-width: fit-content; /* Ensure button fits content */
+}
+
+/* Add mobile-specific adjustments */
+@media (max-width: 768px) {
+    .accept-invitation-btn {
+        padding: 0.75rem 1.25rem; /* Further reduce padding on mobile */
+        font-size: 0.95rem; /* Slightly smaller text on mobile */
+        gap: 0.5rem; /* Reduce gap between text and icon */
+    }
+    
+    .accept-invitation-btn svg {
+        width: 16px; /* Smaller icon on mobile */
+        height: 16px;
+    }
+}
+
+/* Update testimonials heading alignment for mobile */
+@media (max-width: 768px) {
+    .testimonials-heading {
+        text-align: center;
+        width: 100%;
+        margin: 0 auto 3rem;
+        font-size: 2.5rem;
+    }
+}

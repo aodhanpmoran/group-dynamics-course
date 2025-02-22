@@ -97,7 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const containerHeight = container.clientHeight;
             
             if (cardsSectionBottom <= containerHeight + 100) {
-                $('.back-to-top').classList.add('visible');
+                // Add 3 second delay before showing the button
+                setTimeout(() => {
+                    $('.back-to-top').classList.add('visible');
+                }, 3000);
             } else {
                 $('.back-to-top').classList.remove('visible');
             }
@@ -210,11 +213,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function openModal() {
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Show accept invitation button after a short delay
+        setTimeout(() => {
+            $('.accept-invitation-btn').classList.add('visible');
+        }, 500);
     }
 
     function closeModal() {
         modalOverlay.classList.remove('active');
         document.body.style.overflow = '';
+        
+        // Hide accept invitation button
+        $('.accept-invitation-btn').classList.remove('visible');
     }
 
     invitationBtn.addEventListener('click', openModal);
