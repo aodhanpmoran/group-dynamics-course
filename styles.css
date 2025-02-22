@@ -2400,4 +2400,19 @@ html {
         margin-top: 0.25rem;  /* Reduce space before paragraph */
         margin-bottom: 1.5rem;  /* Keep some space after paragraph */
     }
+}
+
+.card .date {
+    color: var(--ethereal-blue);
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+    .card .date {
+        font-size: 1rem;
+        margin: 0.3rem 0;
+    }
 } 
