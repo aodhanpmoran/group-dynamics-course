@@ -129,24 +129,56 @@ button {
     top: auto;
     left: auto;
     transform: none;
-    background: rgba(6, 39, 38, 0.8);
+    background: rgba(6, 39, 38, 0.9); /* Slightly darker background */
     padding: 0.5rem 1rem;
     border-radius: 50px;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(127, 219, 218, 0.2);
+    border: 1px solid rgba(127, 219, 218, 0.3); /* More visible border */
     z-index: 2;
     margin-bottom: 0.5rem;
 }
 
+/* Update status dot styles */
 .status-dot {
     width: 8px;
     height: 8px;
-    background: #10B981; /* Green color */
+    background: #10B981; /* Base green color */
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    animation: brightPulse 2s infinite;
+    box-shadow: 
+        0 0 10px #10B981,
+        0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+/* Enhanced pulsing animation */
+@keyframes brightPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 0 0 rgba(16, 185, 129, 0.7),
+            0 0 10px #10B981,
+            0 0 20px rgba(16, 185, 129, 0.5);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.3);
+        box-shadow: 
+            0 0 0 10px rgba(16, 185, 129, 0),
+            0 0 20px #10B981,
+            0 0 40px rgba(16, 185, 129, 0.7);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 
+            0 0 0 0 rgba(16, 185, 129, 0),
+            0 0 10px #10B981,
+            0 0 20px rgba(16, 185, 129, 0.5);
+        opacity: 1;
+    }
 }
 
 .status-text {
@@ -368,22 +400,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.status-pill {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    margin-bottom: 0.5rem;
-    background: rgba(6, 39, 38, 0.8);
-    padding: 0.5rem 1rem;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(127, 219, 218, 0.2);
 }
 
 h1 {
