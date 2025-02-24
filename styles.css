@@ -2420,7 +2420,7 @@ html {
 }
 
 .card .date {
-    color: var(--ethereal-blue);
+    color: white;
     font-size: 1.1rem;
     margin: 0.5rem 0;
     font-weight: 400;
