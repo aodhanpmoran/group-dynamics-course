@@ -13,11 +13,12 @@
     --light-text: #E0F2F1;
 }
 
+/* Restore original font while keeping scrolling improvements */
 body {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Fraunces', serif;
     margin: 0;
     padding: 0;
-    background: var(--dark-bg);
+    background: linear-gradient(135deg, var(--deep-teal) 0%, var(--dark-bg) 100%);
     color: var(--light-text);
     overflow: hidden;
     height: 100vh;
