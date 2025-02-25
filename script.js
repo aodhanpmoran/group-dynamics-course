@@ -18,13 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
-    // Fade out overlay
+    // Fade out overlay with improved animation
     setTimeout(() => {
         const overlay = $('.overlay');
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-            overlay.style.display = 'none';
-        }, 2000);
+        // Use requestAnimationFrame for smoother animation
+        requestAnimationFrame(() => {
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 2000);
+        });
     }, 500);
 
     // Optimize intersection observer
@@ -110,11 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Use passive event listeners for better scroll performance
     container.addEventListener('scroll', handleScroll, { passive: true });
 
-    // Back to top click handler
+    // Back to top click handler with smoother animation
     $('.back-to-top').addEventListener('click', () => {
-        container.scrollTo({
+        // Smoother scrolling now that snap is removed
+        const scrollOptions = {
             top: 0,
             behavior: 'smooth'
+        };
+        
+        // Use requestAnimationFrame for smoother animation start
+        requestAnimationFrame(() => {
+            container.scrollTo(scrollOptions);
         });
     });
 
@@ -148,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentIndex = 0;
                         track.style.transform = 'translate3d(0, 0, 0)';
                         requestAnimationFrame(() => {
-                            track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                            track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
                         });
                     }, 500);
                 }
@@ -157,11 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     track.style.transition = 'none';
                     currentIndex = cards.length;
                     track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
-                    setTimeout(() => {
-                        track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                        currentIndex--;
-                        track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
-                    }, 50);
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                            currentIndex--;
+                            track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
+                        }, 50);
+                    });
                 } else {
                     currentIndex--;
                     track.style.transform = `translate3d(-${currentIndex * moveAmount}px, 0, 0)`;
@@ -185,47 +196,57 @@ document.addEventListener('DOMContentLoaded', () => {
     // Use passive event listeners for better resize performance
     window.addEventListener('resize', handleResize, { passive: true });
 
-    // Update the booking button animation
-    const bookingLink = $('.booking-link');
-    if (bookingLink) {
-        // Use requestAnimationFrame for smooth animation
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                bookingLink.classList.add('visible');
-            }, 1500); // Delay the animation slightly for better UX
-        });
-    }
-
-    // Add smooth scroll for curriculum button
+    // Add smooth scroll for curriculum button with improved animation
     const curriculumBtn = $('.request-btn');
     curriculumBtn.addEventListener('click', () => {
-        $('.cards-section').scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+        // Get the target section
+        const targetSection = $('.cards-section');
+        
+        // Calculate offset to account for any fixed headers
+        const offset = 50; // Adjust this value based on your header height
+        
+        // Use requestAnimationFrame for smoother animation
+        requestAnimationFrame(() => {
+            const targetPosition = targetSection.getBoundingClientRect().top + container.scrollTop - offset;
+            
+            container.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
         });
     });
 
-    // Modal handling
+    // Modal handling with improved animations
     const modalOverlay = $('.modal-overlay');
     const modalClose = $('.modal-close');
     const invitationBtn = $('.read-invitation-btn');
+    const invitationModal = $('.invitation-modal');
 
     function openModal() {
+        // Show the overlay first
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
         
-        // Show accept invitation button after a short delay
-        setTimeout(() => {
-            $('.accept-invitation-btn').classList.add('visible');
-        }, 500);
+        // Use requestAnimationFrame for smoother animation
+        requestAnimationFrame(() => {
+            // Show accept invitation button after a short delay
+            setTimeout(() => {
+                $('.accept-invitation-btn').classList.add('visible');
+            }, 500);
+        });
     }
 
     function closeModal() {
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-        
-        // Hide accept invitation button
+        // First remove the visible class from the button
         $('.accept-invitation-btn').classList.remove('visible');
+        
+        // Then remove the active class from the overlay
+        modalOverlay.classList.remove('active');
+        
+        // Wait for the animation to complete before enabling scroll
+        setTimeout(() => {
+            document.body.style.overflow = '';
+        }, 400);
     }
 
     invitationBtn.addEventListener('click', openModal);
@@ -238,4 +259,40 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
+
+    // Scroll reveal animation for sections
+    function initScrollReveal() {
+        const sections = document.querySelectorAll('.section');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+        
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const section = entry.target;
+                    
+                    // Use requestAnimationFrame for smoother animation
+                    requestAnimationFrame(() => {
+                        section.classList.add('revealed');
+                    });
+                    
+                    // Stop observing after revealing
+                    observer.unobserve(section);
+                }
+            });
+        }, observerOptions);
+        
+        // Start observing each section
+        sections.forEach(section => {
+            section.classList.add('reveal-section');
+            sectionObserver.observe(section);
+        });
+    }
+
+    // Initialize scroll reveal when DOM is loaded
+    initScrollReveal();
 }); 
